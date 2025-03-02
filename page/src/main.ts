@@ -49,8 +49,8 @@ async function main() {
 
   
   const greenIcon = L.icon({
-    iconUrl: '/markers/marker-icon-2x-green.png',
-    shadowUrl: '/markers/marker-shadow.png',
+    iconUrl: '/post-map/markers/marker-icon-2x-grey.png',
+    shadowUrl: '/post-map/markers/marker-shadow.png',
     iconSize: [25, 41],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
@@ -58,8 +58,8 @@ async function main() {
   });
 
   const grayIcon = L.icon({
-    iconUrl: '/markers/marker-icon-2x-grey.png',
-    shadowUrl: '/markers/marker-shadow.png',
+    iconUrl: '/post-map/markers/marker-icon-2x-grey.png',
+    shadowUrl: '/post-map/markers/marker-shadow.png',
     iconSize: [25, 41],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
