@@ -49,7 +49,7 @@ async function main() {
 
   
   const greenIcon = L.icon({
-    iconUrl: '/post-map/markers/marker-icon-2x-grey.png',
+    iconUrl: '/post-map/markers/marker-icon-2x-green.png',
     shadowUrl: '/post-map/markers/marker-shadow.png',
     iconSize: [25, 41],
     iconAnchor: [12, 41],
