@@ -1,10 +1,9 @@
-import './style.css'
-import 'leaflet/dist/leaflet.css'
-import L from 'leaflet'
+import './style.css';
+import 'leaflet/dist/leaflet.css';
+import 'leaflet-canvas-markers';
+import L from 'leaflet';
 
-import data from '../pois.json'
-
-
+import data from '../pois.json';
 
 function formatDescription(poi: any) {
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -19,7 +18,6 @@ function formatDescription(poi: any) {
   return description;
 }
 
-
 function isStillOpen(poi: any) {
   const now = new Date();
   const weekday = now.getDay() || 7;
@@ -32,7 +30,6 @@ function isStillOpen(poi: any) {
   deadlineDate.setHours(hours, minutes, 0, 0);
   return deadlineDate > now;
 }
-
 
 async function main() {
   // 47.331663, 8.361608 -- 47.536873, 8.836567
@@ -47,33 +44,33 @@ async function main() {
       minZoom: 8
     }).addTo(map);
 
-  
-  const greenIcon = L.icon({
-    iconUrl: '/post-map/markers/marker-icon-2x-green.png',
-    shadowUrl: '/post-map/markers/marker-shadow.png',
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41]
-  });
+  const canvasRenderer = L.canvas(); // Use canvas renderer for markers
 
-  const grayIcon = L.icon({
-    iconUrl: '/post-map/markers/marker-icon-2x-grey.png',
-    shadowUrl: '/post-map/markers/marker-shadow.png',
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41]
-  });
+  const closedPOIs = data.filter((poi: any) => !isStillOpen(poi));
+  const openPOIs = data.filter((poi: any) => isStillOpen(poi));
 
-  data.forEach((poi: any) => {
-    const marker = L.marker([poi.y, poi.x], {
-      icon: isStillOpen(poi) ? greenIcon : grayIcon
+
+  closedPOIs.forEach((poi: any) => {
+    const marker = L.circleMarker([poi.y, poi.x], {
+      renderer: canvasRenderer, // Use canvas renderer
+      radius: 4,
+      color: 'gray',
+      fillOpacity: 0.5
     }).addTo(map);
+
     marker.bindPopup(`<b>${poi.name}</b><br>${formatDescription(poi)}`);
   });
 
+  openPOIs.forEach((poi: any) => {
+    const marker = L.circleMarker([poi.y, poi.x], {
+      renderer: canvasRenderer, // Use canvas renderer
+      radius: 4,
+      color: 'lime',
+      fillOpacity: 1
+    }).addTo(map);
+
+    marker.bindPopup(`<b>${poi.name}</b><br>${formatDescription(poi)}`);
+  });
 }
 
-
-void main()
+void main();
