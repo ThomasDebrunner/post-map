@@ -74,7 +74,11 @@ def subdivide_area(lat_min, lon_min, lat_max, lon_max, max_lat=0.04, max_lon=0.0
 def fetch_persist_pois():
     # 47.331663, 8.361608 -- 47.536873, 8.836567
 
-    subdivisions = list(subdivide_area(47.331663, 8.361608, 47.536873, 8.836567))
+    # subdivisions = list(subdivide_area(47.331663, 8.361608, 47.536873, 8.836567))
+
+    # all of switzerland
+    subdivisions = list(subdivide_area(45.817920, 5.955975, 47.808464, 10.492294))
+
     print(f"Fetching for {len(subdivisions)} subdivisions")
     pois = []
     for i, (lat_min, lon_min, lat_max, lon_max) in enumerate(subdivisions):
